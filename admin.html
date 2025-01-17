@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator Dashboard - Manage Users</title>
+    <!-- Embedded CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f0ff;
+            color: #004080;
+        }
+
+        header {
+            background-color: #004080;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            background-color: #003366;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            background-color: #00264d;
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: #003366;
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        form input, form button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #004080;
+            border-radius: 5px;
+        }
+
+        form button {
+            background-color: #004080;
+            color: white;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #003366;
+        }
+
+        #user-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #user-list ul li {
+            margin: 5px 0;
+            padding: 5px;
+            border: 1px solid #004080;
+            border-radius: 5px;
+            background-color: #f2faff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #user-list ul li button {
+            background-color: #ff6666;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #user-list ul li button:hover {
+            background-color: #cc0000;
+        }
+    </style>
+    <!-- Linking JavaScript -->
+    <script src="js/admin.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Administrator Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="#manage-users">Manage Users</a></li>
+                <li><a href="#manage-questions">Manage Questions</a></li>
+                <li><a href="#monitor-results">Monitor Results</a></li>
+                <li><a href="#database">Database Management</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="manage-users">
+        <h2>Manage Users</h2>
+        <form id="user-form" action="php/manage_users.php" method="POST">
+            <input type="text" id="username" name="username" placeholder="Enter username" required>
+            <input type="password" id="password" name="password" placeholder="Enter password" required>
+            <button type="submit">Add User</button>
+        </form>
+        <div id="user-list">
+            <h3>User List</h3>
+            <ul>
+                <?php
+                // Connect to database
+                $conn = new mysqli('localhost', 'root', '', 'quiz_application');
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+
+                // Fetch users
+                $sql = "SELECT id, username FROM users";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<li>" . htmlspecialchars($row['username']) . " <button onclick=\"deleteUser(" . $row['id'] . ")\">Delete</button></li>";
+                    }
+                } else {
+                    echo "<li>No users found</li>";
+                }
+
+                $conn->close();
+                ?>
+            </ul>
+        </div>
+    </section>
+</body>
+</html>

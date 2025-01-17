@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register & Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="form-container">
+        <!-- Sign Up Form -->
+        <div class="form-box" id="signup" >
+            <h1 class="form-title">Register</h1>
+            <form method="post" action="register.php">
+                <div class="input-group">
+                    <i class="fa fa-user"></i>
+                    <input type="text" name="fname" id="fname" placeholder="First Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa fa-user"></i>
+                    <input type="text" name="lname" id="lname" placeholder="Last Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa fa-envelope"></i>
+                    <input type="email" name="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            <div class="divider"><span>or</span></div>
+            <div class="social-icons">
+                <i class="fa fa-google"></i>
+                <i class="fa fa-facebook"></i>
+                <i class="fa fa-github"></i>
+            </div>
+            <p class="account-switch">Already have an account? 
+                <button id="signInButton">Sign In</button>
+            </p>
+        </div>
+
+        <!-- Sign In Form -->
+        <div class="form-box" id="signin" style="display: none;">
+            <h1 class="form-title">Sign In</h1>
+            <form method="post" action="register.php">
+                <div class="input-group">
+                    <i class="fa fa-envelope"></i>
+                    <input type="email" name="email" id="email-signin" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" name="password" id="password-signin" placeholder="Password" required>
+                </div>
+                <p class="recover">
+                    <a href="#">Recover Password</a>
+                </p>
+                <button type="submit" class="btn">Sign In</button>
+            </form>
+            <div class="divider"><span>or</span></div>
+            <div class="social-icons">
+                <i class="fa fa-google"></i>
+                <i class="fa fa-facebook"></i>
+                <i class="fa fa-github"></i>
+            </div>
+            <p class="account-switch">Don't have an account yet? 
+                <button id="signUpButton">Sign Up</button>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between Sign In and Sign Up
+        const signInButton = document.getElementById('signInButton');
+        const signUpButton = document.getElementById('signUpButton');
+        const signInForm = document.getElementById('signin');
+        const signUpForm = document.getElementById('signup');
+
+        signInButton.addEventListener('click', () => {
+            signUpForm.style.display = 'none';
+            signInForm.style.display = 'block';
+        });
+
+        signUpButton.addEventListener('click', () => {
+            signInForm.style.display = 'none';
+            signUpForm.style.display = 'block';
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
